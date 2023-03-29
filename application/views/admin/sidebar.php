@@ -42,6 +42,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="<?=base_url('Dashboard/addtest'); ?>" class="nav-link">
+                                    <i class="nav-icon fas fa-vial "></i>
+                                    <p class="text">Add Test</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="<?=base_url('Dashboard/p_discharge'); ?>" class="nav-link">
                                     <i class="nav-icon fas fa-user-minus"></i>
                                     <p class="text">Discharge</p>

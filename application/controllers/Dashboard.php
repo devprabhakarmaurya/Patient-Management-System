@@ -95,6 +95,43 @@ class Dashboard extends CI_Controller {
             return redirect('Dashboard/p_discharge');
         }
     }
+	public function addtest()
+	{
+		$this->load->view('admin/add_test');
+	}
+	public function addTestDetail()
+	{
+		$pid = $this->input->post('pid');
+        $query['p_detail'] = $this->db->get_where('patient_record', ['pid' => $pid])->row();
+		// print_r($query); exit();
+		if(!empty($query['p_detail'])){
+			$this->load->view('admin/test_form', $query);
+		}else{
+			$this->session->set_flashdata('error', 'Invalid credentials.');
+			return redirect('Dashboard/addTest');
+		}
+	}
+	public function saveTest()
+	{
+		$data= $_POST;
+		$a = $_FILES['image']['name'];
+        if($a)
+        {
+            $config = array(
+                'upload_path' => "./assets/uploads/reports/",
+                'allowed_types' => "jpg|png|jpeg|pdf",
+            );
+            $this->load->library('upload', $config);
+            $this->upload->do_upload('image');
+            $img = $this->upload->data();
+            $data['image'] = $img['file_name'];
+        } 
+		// print_r($data); exit();
+		$this->db->insert('test',$data);
+        $this->session->set_flashdata('success','Test Added Successfully !!');
+        return redirect('Dashboard/addTest');
+	}
+	
 	
 }
 ?>
